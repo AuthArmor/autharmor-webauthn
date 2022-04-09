@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="form"></div>
+    <script src="build/index.umd.js"></script>
+    <script>
+      const AuthArmor = new window.AuthArmorSDK({
+        endpointBasePath: "http://localhost:8000/auth/autharmor", // (Optional) Your backend URL goes here
+        polling: true,
+        publicKey:
+          "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjhiNzhkYTFmLWU4NWEtNDg4Ny05MmQxLTcyNWZlNTg3MGFiZCJ9.eyJrZXkiOiJudXRnYWo4aHRnNzQ2Y3pjd3dxbXhhN2ZrODR0OXNuaiIsImlhdCI6MTY0NzM3MDEzMH0.6gnGcNAHXAIlVzXZhRQLu9_EEh2gAQso2CHk87UuJD4xjFgZgHv22VYbpuSZ1NnYXD8Yp4Z3KqiHmU1GybYvIw",
+        webauthnClientId: "1bd515ee-c7d5-4e19-ba6e-348f9a785f19"
+        // debug: {
+        //   url: "https://localhost:5001" // (Optional) Custom backend URL here
+        // }
+      });
+
+      AuthArmor.form.mount(".form", {
+        methods: ["webauthn", "magiclink"]
+      });
+    </script>
+  </body>
+</html>
