@@ -33,6 +33,10 @@ interface ParsedUser {
   displayName: string;
 }
 
+export interface Config {
+  webauthnClientId: string;
+}
+
 export interface PublicKey {
   allowCredentials?: Credential[];
   excludeCredentials?: Credential[];
@@ -89,14 +93,44 @@ export interface StartLoginResponse {
   aa_guid: string;
 }
 
-class WebAuthnSDK {
-  private webauthnClientId?: string;
+export interface CreateResponse {
+  authenticator_response_data: {
+    id: any;
+    rawId: string;
+    attestation_object: string;
+    authenticator_data: string | undefined;
+    client_data: string;
+    user_handle: string | undefined;
+    extensions: any;
+  };
+  registration_id: string;
+  aa_sig: string;
+  webauthn_client_id: string | undefined;
+}
 
-  constructor({ webauthnClientId = "" }) {
+export interface GetResponse {
+  authenticator_response_data: {
+    id: string;
+    rawId: string;
+    attestation_object: string;
+    authenticator_data: string | undefined;
+    client_data: string;
+    user_handle: string | undefined;
+    extensions: any;
+  };
+  auth_request_id: string;
+  aa_guid: string;
+  webauthn_client_id: string | undefined;
+}
+
+class WebAuthnSDK {
+  private webauthnClientId: string;
+
+  constructor({ webauthnClientId = "" }: Config) {
     this.webauthnClientId = webauthnClientId;
   }
 
-  toNormalBase64 = (text: string) => {
+  toNormalBase64 = (text: string): string => {
     let encoded = text.replace(/\-/g, "+").replace(/\_/g, "/");
     while (encoded.length % 4) {
       encoded += "=";
@@ -104,7 +138,7 @@ class WebAuthnSDK {
     return encoded;
   };
 
-  base64ToArrayBuffer = (base64: string) => {
+  base64ToArrayBuffer = (base64: string): Uint8Array => {
     const binary_string = window.atob(this.toNormalBase64(base64));
     const len = binary_string.length;
     const bytes = new Uint8Array(len);
@@ -114,7 +148,7 @@ class WebAuthnSDK {
     return bytes;
   };
 
-  arrayBufferToBase64 = (buffer: ArrayBuffer) => {
+  arrayBufferToBase64 = (buffer: ArrayBuffer): string => {
     let binary = "";
     const bytes = new Uint8Array(buffer);
     const len = bytes.byteLength;
@@ -162,7 +196,7 @@ class WebAuthnSDK {
     return parsedPublicKey;
   };
 
-  create = async (start: StartRegisterResponse) => {
+  create = async (start: StartRegisterResponse): Promise<CreateResponse> => {
     const parsedKey: ParsedPublicKey = await this.parsePublicKey(
       JSON.parse(start.fido2_json_options)
     );
@@ -202,7 +236,7 @@ class WebAuthnSDK {
     return parsedResponse;
   };
 
-  get = async (start: StartLoginResponse) => {
+  get = async (start: StartLoginResponse): Promise<GetResponse> => {
     const parsedKey: ParsedPublicKey = await this.parsePublicKey(
       JSON.parse(start.fido2_json_options)
     );
