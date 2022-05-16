@@ -90,7 +90,7 @@ export interface StartRegisterResponse {
 export interface StartLoginResponse {
   fido2_json_options: string;
   auth_request_id: string;
-  aa_sig: string;
+  aa_guid: string;
 }
 
 export interface CreateResponse {
