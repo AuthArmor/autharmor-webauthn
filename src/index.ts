@@ -94,30 +94,14 @@ export interface StartLoginResponse {
 }
 
 export interface CreateResponse {
-  fido2_authenticator_response_data: {
-    id: any;
-    rawId: string;
-    attestation_object: string;
-    authenticator_data: string | undefined;
-    client_data: string;
-    user_handle: string | undefined;
-    extensions: any;
-  };
+  fido2_authenticator_response_data: string;
   registration_id: string;
   aa_sig: string;
   webauthn_client_id: string | undefined;
 }
 
 export interface GetResponse {
-  fido2_authenticator_response_data: {
-    id: string;
-    rawId: string;
-    attestation_object: string;
-    authenticator_data: string | undefined;
-    client_data: string;
-    user_handle: string | undefined;
-    extensions: any;
-  };
+  fido2_authenticator_response_data: {string;
   auth_request_id: string;
   aa_sig: string;
   webauthn_client_id: string | undefined;
@@ -210,7 +194,7 @@ class WebAuthnSDK {
     }
 
     const parsedResponse = {
-      fido2_authenticator_response_data: {
+      fido2_authenticator_response_data: JSON.stringify({
         id: attestation.id,
         rawId: this.arrayBufferToBase64(attestation.rawId),
         attestation_object: this.arrayBufferToBase64(
@@ -227,7 +211,7 @@ class WebAuthnSDK {
           ? this.arrayBufferToBase64(attestation.response.userHandle)
           : undefined,
         extensions: attestation.getClientExtensionResults()
-      },
+      }),
       registration_id: start.registration_id,
       aa_sig: start.aa_sig,
       webauthn_client_id: this.webauthnClientId
@@ -250,7 +234,7 @@ class WebAuthnSDK {
     }
 
     const parsedResponse = {
-      fido2_authenticator_response_data: {
+      fido2_authenticator_response_data: JSON.stringify({
         id: attestation.id as string,
         rawId: this.arrayBufferToBase64(attestation.rawId),
         attestation_object: this.arrayBufferToBase64(
@@ -267,7 +251,7 @@ class WebAuthnSDK {
           ? this.arrayBufferToBase64(attestation.response.userHandle)
           : undefined,
         extensions: attestation.getClientExtensionResults()
-      },
+      }),
       auth_request_id: start.auth_request_id,
       aa_sig: start.aa_guid,
       webauthn_client_id: this.webauthnClientId
