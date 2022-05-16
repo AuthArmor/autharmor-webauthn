@@ -90,11 +90,11 @@ export interface StartRegisterResponse {
 export interface StartLoginResponse {
   fido2_json_options: string;
   auth_request_id: string;
-  aa_guid: string;
+  aa_sig: string;
 }
 
 export interface CreateResponse {
-  authenticator_response_data: {
+  fido2_authenticator_response_data: {
     id: any;
     rawId: string;
     attestation_object: string;
@@ -109,7 +109,7 @@ export interface CreateResponse {
 }
 
 export interface GetResponse {
-  authenticator_response_data: {
+  fido2_authenticator_response_data: {
     id: string;
     rawId: string;
     attestation_object: string;
@@ -119,7 +119,7 @@ export interface GetResponse {
     extensions: any;
   };
   auth_request_id: string;
-  aa_guid: string;
+  aa_sig: string;
   webauthn_client_id: string | undefined;
 }
 
@@ -210,7 +210,7 @@ class WebAuthnSDK {
     }
 
     const parsedResponse = {
-      authenticator_response_data: {
+      fido2_authenticator_response_data: {
         id: attestation.id,
         rawId: this.arrayBufferToBase64(attestation.rawId),
         attestation_object: this.arrayBufferToBase64(
@@ -250,7 +250,7 @@ class WebAuthnSDK {
     }
 
     const parsedResponse = {
-      authenticator_response_data: {
+      fido2_authenticator_response_data: {
         id: attestation.id as string,
         rawId: this.arrayBufferToBase64(attestation.rawId),
         attestation_object: this.arrayBufferToBase64(
@@ -269,7 +269,7 @@ class WebAuthnSDK {
         extensions: attestation.getClientExtensionResults()
       },
       auth_request_id: start.auth_request_id,
-      aa_guid: start.aa_guid,
+      aa_sig: start.aa_guid,
       webauthn_client_id: this.webauthnClientId
     };
 
