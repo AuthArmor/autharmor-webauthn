@@ -94,14 +94,14 @@ export interface StartLoginResponse {
 }
 
 export interface CreateResponse {
-  fido2_authenticator_response_data: string;
+  authenticator_response_data: string;
   registration_id: string;
   aa_sig: string;
   webauthn_client_id: string | undefined;
 }
 
 export interface GetResponse {
-  fido2_authenticator_response_data: {string;
+  authenticator_response_data: string;
   auth_request_id: string;
   aa_sig: string;
   webauthn_client_id: string | undefined;
@@ -194,7 +194,7 @@ class WebAuthnSDK {
     }
 
     const parsedResponse = {
-      fido2_authenticator_response_data: JSON.stringify({
+      authenticator_response_data: JSON.stringify({
         id: attestation.id,
         rawId: this.arrayBufferToBase64(attestation.rawId),
         attestation_object: this.arrayBufferToBase64(
@@ -234,7 +234,7 @@ class WebAuthnSDK {
     }
 
     const parsedResponse = {
-      fido2_authenticator_response_data: JSON.stringify({
+      authenticator_response_data: JSON.stringify({
         id: attestation.id as string,
         rawId: this.arrayBufferToBase64(attestation.rawId),
         attestation_object: this.arrayBufferToBase64(
