@@ -1,6 +1,6 @@
 {
   "name": "autharmor-webauthn-sdk",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "build/index.js",
   "license": "MIT",
   "homepage": "https://github.com/AuthArmor/autharmor-webauthn-sdk#readme",
