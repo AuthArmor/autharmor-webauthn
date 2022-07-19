@@ -48,6 +48,6 @@ const payload = await SDK.create(fido2Challenge);
 Using your WebAuthn key using the SDK is pretty simple, all you have to do is pass the autharmor challenge that you'd receive from the AuthArmor API while attempting to login for example and the SDK will authenticate the user and produce a JSON payload that can be sent through HTTP safely for the backend/AuthArmor API to verify. The produced payload should be directly compatible with both the AuthArmor API and the Backend SDK as well
 
 ```js
-const payload = await SDK.create(challenge.fido2_json_response);
+const payload = await SDK.get(challenge.fido2_json_response);
 // Send payload to your backend for verification using the AuthArmor backend SDK!
 ```
