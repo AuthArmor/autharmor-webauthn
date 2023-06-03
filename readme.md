@@ -29,7 +29,7 @@ This SDK is fully coded in TypeScript and its definition files are bundled by de
 In order to initialize the SDK, you'll have to create a new instance of the AuthArmor SDK with the url of your backend API specified in it.
 
 ```javascript
-const SDK = new AuthArmorWebAuthnSDK({
+const SDK = new AuthArmorWebAuthn({
   webauthnClientId: "..." // Obtain your Webauthn client ID through the AuthArmor dashboard
 });
 ```
