@@ -15,7 +15,7 @@ yarn add autharmor-webauthn-sdk
 You can also load the SDK via our CDN by placing this `script` tag in your app's `<head>`
 
 ```html
-<script src="https://cdn.autharmor.com/scripts/autharmor-webauthn-sdk/v2.0.0/autharmor-webauthn-sdk_v2.0.0.js"></script>
+<script src="https://cdn.autharmor.com/scripts/autharmor-webauthn-sdk/v3.0.0/autharmor-webauthn-sdk.js"></script>
 ```
 
 ## Typescript
